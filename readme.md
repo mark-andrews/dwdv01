@@ -5,6 +5,10 @@ In the coverage of data wrangling, we will cover tools provided by R's `tidyvers
 We will cover how to read data of different types into R using `readr` and related packages, and then cover in detail all the `dplyr` tools such as `select`, `filter`, `mutate`, `summarize`, etc. We will also cover the pipe operator (`%>%`) to create data wrangling pipelines that take raw messy data on the one end and return cleaned tidy data on the other. We will also how to reshape data using pivots, and how to merge data sets using merge operations.
 For the topic of visualization, we provide a comprehensive introduction to data visualization in R using ggplot. We begin by covering the major types of plots for visualizing distributions of univariate data: histograms, density plots, barplots, and Tukey boxplots. In all of these cases, we will consider how to visualize multiple distributions simultaneously on the same plot using different colours and "facet" plots. We then turn to the visualization of bivariate data using scatterplots. Here, we will explore how to apply linear and nonlinear smoothing functions to the data, how to add marginal histograms to the scatterplot, add labels to points, and scale each point by the value of a third variable. 
 
+## Intended Audience
+
+This course is aimed at anyone who is involved in real world data analysis, where the raw data is messy and complex, and where understanding of the data and the models of the data require visualization. Data analysis of this kind is practiced widely throughout academic scientific research, as well as widely throughout the public and private sectors.
+
 ## Teaching Format
 
 This course will be practical, hands-on, and workshop based. For some topics, there will a very minimal amount of lecture style presentations, i.e., using slides or blackboard, to introduce and explain key concepts and theories, but almost all of our time will be spent doing data wrangling using R. Any code that the instructor produces during these sessions will be uploaded to a publicly available GitHub site after each session.
