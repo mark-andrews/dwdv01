@@ -33,6 +33,9 @@ Minimal prior experience with R and RStudio is required. Attendees should be fam
 Attendees of the course will need to use RStudio. Most people will want to use their own computer on which they install the RStudio desktop software. This can be done Macs, Windows, and Linux, though not on tablets or other mobile devices. Instructions on how to install and configure all the required software, which is all free and open source, are provided [here](software.md). 
 An alternative to using a local installation of RStudio is to use RStudio cloud (https://rstudio.cloud/). This is a free to use and full featured web based RStudio. It is not suitable for computationally intensive work but everything done in this class can be done using RStudio cloud.
 
+You can also try this RStudio project running in mybinder:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mark-andrews/psyntur_in_binder/HEAD?urlpath=rstudio)
+
 
 # Course programme 
 
