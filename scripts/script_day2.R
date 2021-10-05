@@ -29,20 +29,17 @@ group_by(blp_df, lex) %>%
   summarize(avg_rt = mean(rt, na.rm = T),
             sd_rt = sd(rt.raw, na.rm = T)
   )
-)
 
 
 group_by(blp_df, participant) %>% 
   summarize(avg_rt = mean(rt, na.rm = T),
             sd_rt = sd(rt.raw, na.rm = T)
   )
-)
 
 group_by(blp_df, lex, resp) %>% 
   summarize(avg_rt = mean(rt, na.rm = T),
             sd_rt = sd(rt.raw, na.rm = T)
   )
-)
 
 
 # Going from long to wide, or wide to long with pivots --------------------
