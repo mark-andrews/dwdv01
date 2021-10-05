@@ -216,4 +216,97 @@ arrange(blp_df, spell)
 
 # pipelines with %>% ------------------------------------------------------
 
-%>% 
+x <- c(1, 2, 3, 5, 11, 17)
+log(x) # log to base e of x
+sqrt(log(x)) # sqrt of the log of x 
+sum(sqrt(log(x))) # sum of sqrt of log of x
+log(sum(sqrt(log(x))))
+
+# using intermediate data structures
+log_x <- log(x)
+sqrt_log_x <- sqrt(log_x)
+
+# the nested functions in a pipeline
+x %>% log() # same as log(x)
+x %>% log() %>% sqrt() # same as sqrt(log(x))
+x %>% log() %>% sqrt() %>% sum() %>% log() # same as log(sum(sqrt(log(x))))
+
+# with intermediate data frames
+blp_df_tmp <- mutate(blp_df, accuracy = lex == resp)
+blp_df_tmp_2 <- filter(blp_df_tmp, accuracy == TRUE)
+select(blp_df_tmp_2, participant, spell, rt)
+
+blp_df_2 <- mutate(blp_df, accuracy = lex == resp) %>% 
+  filter(accuracy == TRUE) %>% 
+  select(participant, spell, rt)
+
+mutate(blp_df, accuracy = lex == resp) %>% 
+  filter(accuracy == TRUE) %>% 
+  select(participant, spell, rt) -> blp_df_2
+
+read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/blp-trials-short.txt") %>% 
+  mutate(accuracy = lex == resp) %>% 
+  filter(accuracy == TRUE) %>% 
+  select(participant, spell, rt)
+
+# summarizing with summarize ----------------------------------------------
+
+summarize(blp_df, med_rt = median(rt, na.rm = T))
+
+summarise(blp_df, 
+          med_rt = median(rt, na.rm = T),
+          sd_rt = sd(rt, na.rm = T),
+          mean_prev = mean(prev.rt, na.rm = T),
+          mad_raw = mad(rt.raw, na.rm = T)
+)
+
+summarize(blp_df,
+          across(rt:rt.raw, ~mean(., na.rm=T))
+)
+
+summarise(blp_df,
+          across(rt:rt.raw,
+                 list(avg = ~mean(., na.rm = T),
+                      sd = ~sd(., na.rm = T))
+          )
+)
+
+group_by(blp_df, lex) %>% 
+  summarize(avg_rt = mean(rt, na.rm = T),
+            sd_rt = sd(rt.raw, na.rm = T)
+  )
+)
+
+
+group_by(blp_df, participant) %>% 
+  summarize(avg_rt = mean(rt, na.rm = T),
+            sd_rt = sd(rt.raw, na.rm = T)
+  )
+)
+
+group_by(blp_df, lex, resp) %>% 
+  summarize(avg_rt = mean(rt, na.rm = T),
+            sd_rt = sd(rt.raw, na.rm = T)
+  )
+)
+
+
+# Going from long to wide, or wide to long with pivots --------------------
+
+repeated_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/repeated_measured_a.csv")
+
+pivot_longer(repeated_df,
+             -Subject,
+             names_to = 'condition',
+             values_to = 'score')
+
+repeated_df_wide <- pivot_longer(repeated_df,
+                                 -Subject,
+                                 names_to = 'condition',
+                                 values_to = 'score')
+
+pivot_wider(repeated_df_wide,
+            names_from = condition,
+            values_from = score)
+
+repeated_df_b <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/repeated_measured_b.csv")
