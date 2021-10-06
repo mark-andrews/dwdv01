@@ -176,5 +176,43 @@ inner_join(Df_4, Df_5, by = c('x' = 'a'))
 inner_join(Df_4, rename(Df_5, 'x' = 'a'))
 
 
-list.files('exp_data')
-fs::dir_ls('exp_data')
+# Read in multiple files into one data frame ------------------------------
+
+
+list.files('exp_data', full.names = TRUE)
+
+library(fs)
+data_file_list <- dir_ls('exp_data')
+
+data_frame_list <- map(data_file_list, read_csv)
+length(data_frame_list)
+names(data_frame_list)
+
+#map(data_file_list, read_csv) %>% bind_rows()
+
+exp_data_df <- bind_rows(data_frame_list)
+class(exp_data_df)
+dim(exp_data_df)
+
+exp_data_df <- bind_rows(data_frame_list, .id = 'subject')
+exp_data_df %>% 
+  mutate(subject = str_match(subject, 'exp_data/subject-(.*)\\.csv')[,2])
+
+# pipeline version of the above
+dir_ls('exp_data') %>% 
+  map(read_csv) %>% 
+  bind_rows(.id = 'subject') %>% 
+  mutate(subject = str_match(subject, 
+                             'exp_data/subject-(.*)\\.csv')[,2]
+  )
+
+# another pipeline version of the above
+dir_ls('exp_data') %>% 
+  map_dfr(read_csv, .id = 'subject') %>% 
+  mutate(subject = str_match(subject, 
+                             'exp_data/subject-(.*)\\.csv')[,2]
+  )
+
+exp_data_df <- bind_rows(data_frame_list, .id = 'subject')
+exp_data_df %>% select(1) %>% 
+  mutate(subject = str_match(subject, 'exp_data/subject-(.*)\\.csv'))
