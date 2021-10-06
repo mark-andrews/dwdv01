@@ -12,5 +12,10 @@ These are password protected, and you will have been given this password in the 
 * [Session 2](https://vimeo.com/623795593)
 
 # Day 3
+
+* [Session 1](https://vimeo.com/624719812)
+* [Session 2](https://vimeo.com/624845570)
+
+
 # Day 4
 # Day 5
