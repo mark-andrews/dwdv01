@@ -66,3 +66,33 @@ The main packages that are contained within the
 
 Some of the tidyverse code that we will be using will be based on very recent versions of the tidyverse packages, so it is highly recommended that you update these packages if you installed before recently.
 
+
+## Installing LaTeX using `tinytex`
+
+Unless you already use LaTeX and have it installed already, the easiest thing to do is to install `tinytex` as follows.
+```r
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+This installation will take some time. After it completes, you should restart RStudio.
+After you restart, type the following command (note the three `:`'s):
+```r
+tinytex:::is_tinytex()
+```
+
+Test that rmarkdown (which will have be installed by `tidyvese`) will render pdf documents using LaTeX with the following code.
+```r
+writeLines("Hello $x^2$", 'test.Rmd')
+rmarkdown::render("test.Rmd", output_format = "pdf_document")
+```
+If that worked, you should have a pdf document named `test.pdf` in your working directory. 
+
+
+## Additional packages
+
+We will use a few other packages for making plots, particularly in RMarkdown.
+
+```r
+install.packages(c("ggExtra", "cowplot", "ggrepel"))
+```
+
