@@ -93,6 +93,6 @@ If that worked, you should have a pdf document named `test.pdf` in your working 
 We will use a few other packages for making plots, particularly in RMarkdown.
 
 ```r
-install.packages(c("ggExtra", "cowplot", "ggrepel"))
+install.packages(c("ggExtra", "cowplot"))
 ```
 
