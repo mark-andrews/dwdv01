@@ -355,3 +355,34 @@ ggplot(sleep_df,
        mapping = aes(x = Days, y = Reaction, colour = Subject)
 ) + geom_point() + stat_smooth(method = 'lm', se = F) +
   facet_wrap(~Subject)
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction, colour = Subject)
+) + geom_point() + stat_smooth(method = 'lm', se = F) +
+  facet_wrap(~Subject, ncol = 4)
+
+
+weight_df %>% pull(race) %>% table()
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'lm',
+              fullrange = TRUE,
+              se = FALSE) + facet_wrap(~race)
+
+
+ggplot(weight_df,
+       mapping = aes(x = weight, fill = gender)
+) + geom_histogram(binwidth = 2,
+                   colour = 'white',
+                   position = 'identity') +
+  facet_wrap(~gender)
+
+weight_df %>% 
+  filter(race <= 3) %>% 
+  ggplot(mapping = aes(x = weight, fill = gender)
+  ) + geom_histogram(binwidth = 2,
+                     colour = 'white',
+                     position = 'identity') +
+  facet_grid(race ~ gender)
