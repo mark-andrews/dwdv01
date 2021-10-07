@@ -10,6 +10,17 @@ ggplot(data_df,
 ) + geom_point()
 
 ggplot(data_df,
+       aes(var1, var2)
+) + geom_point()
+
+p1 <- ggplot(data_df,
+       aes(var1, var2)
+)
+
+p2 <- p1 + geom_point()
+p3 <- p1 + geom_line()
+
+ggplot(data_df,
        mapping = aes(x = var1, y = var2)
 ) + geom_line()
 
@@ -62,6 +73,7 @@ ggplot(data_df,
 weight_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/weight.csv")
 titanic_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/TitanicSurvival.csv")
 carprice_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/carprice.csv")
+sleep_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/sleepstudy.csv")
 
 
 # histogram ---------------------------------------------------------------
@@ -192,3 +204,154 @@ swiss %>%
   ggplot(aes(x = catholic, y = Fertility)) +
   geom_boxplot(width = 0.5, outlier.shape = NA) +
   geom_jitter(width = 0.2)
+
+ToothGrowth
+
+# this does not make what we want
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, y = len, colour = supp)
+) + geom_boxplot()
+
+# here's a way of getting close to what we want
+ggplot(ToothGrowth,
+       mapping = aes(x = factor(dose), y = len, colour = supp)
+) + geom_boxplot()
+
+# here's another way of getting close to what we want
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, y = len, colour = supp, group = dose)
+) + geom_boxplot()
+
+# here's another way of getting close to what we want
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, 
+                     y = len, 
+                     colour = supp, 
+                     group = interaction(supp, dose))
+) + geom_boxplot()
+
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, 
+                     y = len, 
+                     colour = supp, 
+                     group = interaction(dose, supp))
+) + geom_boxplot()
+
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, 
+                     y = len, 
+                     colour = supp, 
+                     group = interaction(dose, supp))
+) + geom_boxplot() +
+  geom_jitter(width = 0.05)
+
+ggplot(ToothGrowth,
+       mapping = aes(x = dose, 
+                     y = len, 
+                     colour = supp, 
+                     group = interaction(dose, supp))
+) + geom_boxplot() +
+  geom_jitter(
+    position = position_jitterdodge(
+      dodge.width = 1/3,
+      jitter.width = 1/3 * 0.5
+  )
+)
+
+
+# scatterplot -------------------------------------------------------------
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(alpha = 0.5, size = 0.5)
+
+
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point()
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'lm')
+
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'lm', 
+              colour = 'black',
+              se = FALSE)
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'lm',
+              se = FALSE)
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'lm',
+              fullrange = TRUE,
+              se = FALSE)
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth()
+
+ggplot(swiss,
+       mapping = aes(x = Examination, y = Fertility)
+) + geom_point() + stat_smooth(se = FALSE)
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(size = 0.5, alpha = 0.5) +
+  stat_smooth(method = 'loess')
+
+
+ggplot(swiss,
+       mapping = aes(x = Examination, y = Fertility)
+) + geom_point() + stat_smooth(se = T, 
+                               method = 'gam',
+                               formula = y ~ s(x, bs = "tp"))
+
+
+ggplot(swiss,
+       mapping = aes(x = Examination, y = Fertility)
+) + geom_point() + stat_smooth(se = T, 
+                               method = 'lm',
+                               formula = y ~ poly(x, 3))
+
+
+ggplot(swiss,
+       mapping = aes(x = Examination, y = Fertility)
+) + geom_point() + stat_smooth(se = T, 
+                               #method = 'lm',
+                               formula = y ~ x)
+
+
+# facet plots -------------------------------------------------------------
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction)
+) + geom_point()
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction, colour = Subject)
+) + geom_point()
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction, colour = Subject)
+) + geom_point() + stat_smooth(method = 'lm')
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction, colour = Subject)
+) + geom_point() + stat_smooth(method = 'lm', se = F)
+
+ggplot(sleep_df,
+       mapping = aes(x = Days, y = Reaction, colour = Subject)
+) + geom_point() + stat_smooth(method = 'lm', se = F) +
+  facet_wrap(~Subject)
