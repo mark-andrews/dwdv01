@@ -1,0 +1,59 @@
+---
+title: "My First RMarkdown Document"
+author: "Mark Andrews" # this is a comment
+date: "`r format(Sys.Date(), format='%B %d, %Y')`"
+output: pdf_document
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+caption <- '
+Height against weight, in men and women.
+'
+```
+
+Hello world.
+<!-- This is a comment in the markdown body 
+ everything 
+ here 
+ 
+ is a 
+ 
+ comment
+
+
+-->
+
+```{r scatterplot, message=FALSE, warning=FALSE, echo=FALSE, fig.cap=caption, out.width="0.67\\textwidth", fig.align='center'}
+library(tidyverse)
+
+weight_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/weight.csv")
+
+ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point(size = 0.5) + theme_classic()
+```
+
+
+```{r scatterplotx, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Another fig", fig.height=8, fig.align='center'}
+library(tidyverse)
+library(cowplot)
+
+weight_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/dwdv01/master/data/weight.csv")
+
+p1 <- ggplot(weight_df,
+       mapping = aes(x = height, y = weight, colour = gender)
+) + geom_point(size = 0.5) + theme_classic()
+
+p2 <- ggplot(weight_df,
+       mapping = aes(x = height, y = weight)
+) + geom_point(size = 0.5) + stat_smooth(method = 'lm') + theme_classic()
+
+plot_grid(p1, p2, nrow = 2)
+```
+
+
+As you can see in Figure \ref{fig:scatterplotx}, but not in Figure \ref{fig:scatterplot} ...
