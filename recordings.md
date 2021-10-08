@@ -23,3 +23,6 @@ These are password protected, and you will have been given this password in the 
 * [Session 2](https://vimeo.com/626470306)
 
 # Day 5
+
+* [Session 1](https://vimeo.com/626882822)
+* [Session 2](https://vimeo.com/626840545)
